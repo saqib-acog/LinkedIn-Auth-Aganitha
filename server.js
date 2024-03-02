@@ -55,7 +55,7 @@ app.get("/auth/linkedin", checkNotAuthenticated, (req, res) => {
     `${process.env.LINKEDIN_CALLBACK}?resourceUrl=${resourceUrl}`
   );
   const state = Math.random().toString(36).substring(7);
-  console.log(state);
+  // console.log(state);
   const scope = encodeURIComponent("openid profile email");
 
   const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
