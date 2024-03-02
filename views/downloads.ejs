@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h1 {
+        font-size: 30px;
+        text-align: "center";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Downloading has started</h1>
+    <h2>Redirecting to aganitha website in <span id="timer"></span></h2>
+    <p>
+      If you dont get redirected then
+      <a id="click-here" target="_self"> Click here</a>
+    </p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+      const resourceUrl = "<%= resourceUrl %>";
+      const timer = document.getElementById("timer");
+      const redirectUrl = "http://localhost:5501";
+      document.getElementById("click-here").href = redirectUrl;
+      function redirect() {
+        let time = 5;
+        timer.textContent = time;
+        const intervalId = setInterval(() => {
+          if (time > 0) {
+            time--;
+            timer.textContent = time;
+          } else {
+            window.open(redirectUrl, "_self");
+            clearInterval(intervalId);
+          }
+        }, 1000);
+      }
+      function download(resourceUrl) {
+        axios({
+          url: resourceUrl,
+          method: "GET",
+          responseType: "blob",
+        }).then((response) => {
+          const fileExtension = resourceUrl.split(".").pop();
+          const filename = `aganitha-resource.${fileExtension}`;
+
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", filename);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        });
+      }
+      download(resourceUrl);
+      // redirect();
+    </script>
+  </body>
+</html>
