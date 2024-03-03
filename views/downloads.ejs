@@ -90,7 +90,7 @@
           responseType: "blob",
         }).then((response) => {
           const fileExtension = resourceUrl.split(".").pop();
-          const filename = `aganitha-resource.${fileExtension}`;
+          const filename = `aganitha-crystal-structure-prediction.${fileExtension}`;
 
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
