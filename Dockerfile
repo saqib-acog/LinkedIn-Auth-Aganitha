@@ -1,6 +1,6 @@
 FROM node:alpine
 WORKDIR /linkedin-auth
 COPY . .
-RUN npm i
+RUN npm ci
 EXPOSE 3000
-CMD ["npm", "run", "dev" ]
+CMD ["node", "server.js" ]
