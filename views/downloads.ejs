@@ -22,7 +22,7 @@
     <script>
       const resourceUrl = "<%= resourceUrl %>";
       const timer = document.getElementById("timer");
-      const redirectUrl = "http://localhost:5501";
+      const redirectUrl = "<%= referer %>";
       document.getElementById("click-here").href = redirectUrl;
       function redirect() {
         let time = 5;
@@ -57,7 +57,7 @@
         });
       }
       download(resourceUrl);
-      // redirect();
+      redirect();
     </script>
   </body>
 </html>
