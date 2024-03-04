@@ -26,24 +26,14 @@ app.use(
 app.use(
   "/assets",
   checkAuthenticated,
-  (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  },
   express.static(join(__dirname, "assets"))
 );
 app.use(methodOverride("_method"));
 
-// app.use('/assets', express.static(join(__dirname, 'assets')));
-
 // Page to download the requested resource
 app.get("/", checkAuthenticated, (req, res) => {
   const resourceUrl = req.query.resourceUrl;
-  const referer = req.query.referer;
+  const referer = req.query.referer || req.header("Referer");
   res.render("downloads.ejs", { resourceUrl, referer });
 });
 
@@ -67,7 +57,6 @@ app.get("/auth/linkedin", checkNotAuthenticated, (req, res) => {
 app.get("/auth/linkedin/callback", checkNotAuthenticated, async (req, res) => {
   try {
     const resourceUrl = req.query.resourceUrl;
-    console.log(resourceUrl);
     const referer = req.query.referer;
     const code = req.query.code;
     const redirectUri = encodeURIComponent(
@@ -75,8 +64,6 @@ app.get("/auth/linkedin/callback", checkNotAuthenticated, async (req, res) => {
     );
     const accessToken = await getAccessToken(code, redirectUri);
     const userInfo = await getUserInfo(accessToken);
-
-    console.log(userInfo);
 
     appendUserData(userInfo);
 
@@ -106,10 +93,6 @@ function checkNotAuthenticated(req, res, next) {
   }
   next();
 }
-
-// function sleep(time) {
-//   return new Promise((resolve) => setTimeout(() => resolve(1), time));
-// }
 
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
