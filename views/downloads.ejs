@@ -54,7 +54,8 @@
         <img src="assets/Logo.svg" alt="Aganitha Logo" />
         <p class="downloading">Download has started</p>
         <p class="redirecting">
-          Redirecting to <span id="redirecturl-link-content"></span> in <span id="timer"></span>
+          Redirecting to <span id="redirecturl-link-content"></span> in
+          <span id="timer"></span>
         </p>
       </div>
     </main>
@@ -63,7 +64,8 @@
       const resourceUrl = "<%= resourceUrl %>";
       const timer = document.getElementById("timer");
       const redirectUrl = "<%= referer %>";
-      document.getElementById("redirecturl-link-content").textContent = redirectUrl;
+      document.getElementById("redirecturl-link-content").textContent =
+        redirectUrl;
       function redirect() {
         let time = 5;
         timer.textContent = time;
@@ -83,9 +85,7 @@
           method: "GET",
           responseType: "blob",
         }).then((response) => {
-          const fileExtension = resourceUrl.split(".").pop();
-          const filename = `aganitha-crystal-structure-prediction.${fileExtension}`;
-
+          const filename = resourceUrl.split("/").pop();
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
           link.href = url;
