@@ -65,6 +65,9 @@ app.get("/auth/linkedin/callback", checkNotAuthenticated, async (req, res) => {
     const accessToken = await getAccessToken(code, redirectUri);
     const userInfo = await getUserInfo(accessToken);
 
+    // append resource name from resoruceUrl to userInfo
+    userInfo.requestedResource = resourceUrl.split("/assets/").pop();
+
     appendUserData(userInfo);
 
     req.session.user = userInfo;
