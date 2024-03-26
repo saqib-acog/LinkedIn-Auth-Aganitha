@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  linkedinauth:
+    build: ./
+    image: downloads-saqib-linkedinauth
+    container_name: downloads
+    restart: always
+    labels:
+      - "linkedinauth.ignore=true"
+    ports:
+      - 5000:3000
+    volumes:
+      - ./:/linkedin-auth

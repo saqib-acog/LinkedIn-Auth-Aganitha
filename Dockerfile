@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:18.19.1
 WORKDIR /linkedin-auth
 COPY . .
 RUN npm ci
