@@ -2,7 +2,7 @@ name: Node.js Ci
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
 
 jobs:
   deploy:
