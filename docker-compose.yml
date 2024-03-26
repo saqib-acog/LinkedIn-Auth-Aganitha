@@ -11,4 +11,5 @@ services:
     ports:
       - 5000:3000
     volumes:
-      - ./:/linkedin-auth
+      - ./customer-data.json:/linkedin-auth/customer-data.json
+      - ./assets:/linkedin-auth/assets
