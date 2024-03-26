@@ -1,0 +1,13 @@
+name: Node.js Ci
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: pull remote repository
+        run: git pull
